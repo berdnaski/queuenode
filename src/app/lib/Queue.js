@@ -5,4 +5,9 @@ import RegistrationMail from '../jobs/RegistrationMail';
 
 const mailQueue = new Queue(RegistrationMail.key, redisConfig);
 
+mailQueue.on('failed', (job, err) => {
+  console.log(`Queue ${RegistrationMail.key}: FAILED`, job.data);
+  console.log(err);
+})
+
 export default mailQueue;
